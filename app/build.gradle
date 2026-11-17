@@ -7,11 +7,21 @@ android {
         applicationId "ar.biblioteca.manuales"
         minSdk 21
         targetSdk 34
-        versionCode 2
-        versionName "1.1"
+        versionCode 3
+        versionName "1.2"
+    }
+    signingConfigs {
+        // Clave fija dentro del repo: así cada versión nueva se instala encima de la anterior.
+        fija {
+            storeFile file("manuales.keystore")
+            storePassword "manuales"
+            keyAlias "manuales"
+            keyPassword "manuales"
+        }
     }
     buildTypes {
-        release { minifyEnabled false }
+        debug { signingConfig signingConfigs.fija }
+        release { minifyEnabled false; signingConfig signingConfigs.fija }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
